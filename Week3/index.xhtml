@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:h="http://xmlns.jcp.org/jsf/html"
+ xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+ xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+ <h:head>
+     <h:outputStylesheet name="css/newcss.css" />
+     
+ <title>#{indexController.pageTitle}</title>
+ </h:head>
+  <div id="movieList">
+  <h1>Movie List</h1>
+</div>
+  <ui:repeat value="#{movieApplication.movies}" var="movie" varStatus="status" ></ui:repeat>
+  <div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+        <h3 >
+            <h:link value="#{movieApplication.movies.get(status.index).title}" outcome="movie"> </h:link>
+        </h3>
+      <p> <h:link value="#{movieApplication.movies.get(status.index).director}" outcome="movie"> </h:link> </p>
+      <p> <h:link value="#{movieApplication.movies.get(status.index).year}" outcome="movie"> </h:link> </p>
+      <f:param name="movieID" value="#{status.index + 1}"></f:param>
+    </div>
+  </div>
+  </div>
+ <h:body>
+  
+ <!-- For each movie in movies ArrayList... -->
+ <ui:repeat value="#{movieApplication.movies}" var="movie" varStatus="status" >
+     <div class="movie">
+ <!-- Iterate it -->
+ <h:link value="#{movieApplication.movies.get(status.index).title}" outcome="movie"> </h:link>
+     <ul>
+         <li> 
+            <h:link value="#{movieApplication.movies.get(status.index).director}" outcome="movie"> </h:link> 
+         </li>
+         <li> 
+             <h:link value="#{movieApplication.movies.get(status.index).year}" outcome="movie"> </h:link> 
+         </li>
+     </ul>
+   
+ <!--
+ This param is adding a GET variable index to associate
+ a movie id with hyperlink.
+ -->
+ <f:param name="movieID" value="#{status.index + 1}"></f:param>
+             
+      
+  </div>
+ </ui:repeat>
+
+ </h:body>
+    <br></br>
+    <h:button value="Add Movie" outcome="AddMovie"> </h:button>
+    <h:button value="Delete Movie" outcome="index"> </h:button>
+</html>
+
+
